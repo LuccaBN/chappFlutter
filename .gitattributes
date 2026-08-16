@@ -1,0 +1,8 @@
+# Marca as pastas de runner nativo do Flutter como vendored para o GitHub Linguist
+# Isso garante que a barra de linguagens no repositório do GitHub exiba ~100% Dart
+android/** linguist-vendored
+ios/** linguist-vendored
+windows/** linguist-vendored
+linux/** linguist-vendored
+macos/** linguist-vendored
+web/** linguist-vendored
