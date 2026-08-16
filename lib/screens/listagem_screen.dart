@@ -41,6 +41,25 @@ class ListagemScreen extends StatelessWidget {
     );
   }
 
+  /// Abre o formulário de cadastro/edição e exibe um SnackBar com o resultado retornado.
+  Future<void> _abrirFormulario(BuildContext context, {Cliente? cliente}) async {
+    final result = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => FormularioScreen(cliente: cliente),
+      ),
+    );
+
+    if (result != null && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(result),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,14 +126,7 @@ class ListagemScreen extends StatelessWidget {
                     '${cliente.cidade} - ${cliente.uf}\n${cliente.telefone}',
                   ),
                   isThreeLine: true,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => FormularioScreen(cliente: cliente),
-                      ),
-                    );
-                  },
+                  onTap: () => _abrirFormulario(context, cliente: cliente),
                   trailing: IconButton(
                     icon: Icon(
                       Icons.delete_outline,
@@ -129,14 +141,7 @@ class ListagemScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => const FormularioScreen(),
-            ),
-          );
-        },
+        onPressed: () => _abrirFormulario(context),
         icon: const Icon(Icons.add),
         label: const Text('Novo Cliente'),
       ),

@@ -131,18 +131,11 @@ class _FormularioBodyState extends State<_FormularioBody> {
       provider.adicionarCliente(clienteNovo);
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          _modoEdicao
-              ? 'Cliente atualizado com sucesso!'
-              : 'Cliente cadastrado com sucesso!',
-        ),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+    final mensagem = _modoEdicao
+        ? 'Cliente "${clienteNovo.nome}" atualizado com sucesso!'
+        : 'Cliente "${clienteNovo.nome}" cadastrado com sucesso!';
 
-    Navigator.pop(context);
+    Navigator.pop(context, mensagem);
   }
 
   /// Retorna o ícone indicador do status da busca de CEP.
